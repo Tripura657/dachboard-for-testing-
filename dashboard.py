@@ -1,5 +1,13 @@
+import streamlit as st  # <-- This line is super important!
+
+# Initialize session state for page navigation
+if "page" not in st.session_state:
+    st.session_state.page = "dashboard"
+
+# App title
 st.title("💙 Mental Health Dashboard")
 
+# Button grid
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -27,3 +35,6 @@ with col5:
 with col6:
     if st.button("🫧 Bubble Game"):
         st.session_state.page = "bubble_game"
+
+# Display which feature is selected
+st.write(f"📌 You selected: `{st.session_state.page}`")
