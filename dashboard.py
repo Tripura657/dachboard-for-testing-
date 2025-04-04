@@ -6,38 +6,42 @@ st.set_page_config(page_title="Mental Health Dashboard", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "dashboard"
 
-# Title
+# Page title
 st.title("💙 Mental Health Dashboard")
 
-# Custom CSS for big clickable boxes
+# CSS for big, clean feature boxes
 st.markdown("""
     <style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 10px 0;
+    }
+
     .big-box {
         display: block;
         padding: 30px;
-        margin: 10px;
         border-radius: 15px;
         background-color: #e6f2ff;
         color: #003366;
         text-align: center;
-        font-size: 20px;
+        font-size: 22px;
         font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
+        text-decoration: none;
+        transition: all 0.3s ease;
         border: 2px solid transparent;
     }
+
     .big-box:hover {
         background-color: #d1e7ff;
         border-color: #3399ff;
-    }
-    a {
-        text-decoration: none;
+        transform: scale(1.03);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Create layout with 2 rows of 3 boxes
-cols1 = st.columns(3)
+# Features and navigation
 features = [
     ("💬 Motivational Chatbot", "motivation"),
     ("🧠 Mental Health Chat", "chatbot"),
@@ -47,15 +51,16 @@ features = [
     ("🫧 Bubble Game", "bubble_game"),
 ]
 
-# Create feature boxes
-for i, (label, value) in enumerate(features):
-    col = cols1[i % 3] if i < 3 else st.columns(3)[i % 3]
-    with col:
-        if st.markdown(f'<a class="big-box" href="?page={value}">{label}</a>', unsafe_allow_html=True):
-            st.session_state.page = value
+# Create big clickable boxes in a grid
+st.markdown('<div class="grid-container">', unsafe_allow_html=True)
+for label, value in features:
+    st.markdown(f'<a class="big-box" href="?page={value}">{label}</a>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-# Show which one is clicked (for now)
-query_params = st.experimental_get_query_params()
+# Read selected page from URL
+query_params = st.query_params
 if "page" in query_params:
-    st.session_state.page = query_params["page"][0]
-    st.write(f"📌 You selected: `{st.session_state.page}`")
+    st.session_state.page = query_params["page"]
+
+# Optional: Show what the user selected (for debugging or transition)
+st.write(f"📌 You selected: `{st.session_state.page}`")
