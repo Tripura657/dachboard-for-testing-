@@ -48,7 +48,7 @@ features = [
     ("🎭 Talk with a Character", "character_chat"),
     ("🤗 Take a Hug", "hug"),
     ("🌞 Daily Positivity", "positivity"),
-    ("🫧 Bubble Game", "bubble_game"),
+    
 ]
 
 # Create big clickable boxes in a grid
