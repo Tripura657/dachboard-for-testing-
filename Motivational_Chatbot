@@ -1,0 +1,5 @@
+import streamlit as st
+
+st.title("💬 Motivational Chatbot")
+st.write("This is where your chatbot will go.")
+# Add your existing chatbot code here
