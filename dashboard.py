@@ -1,22 +1,41 @@
-import streamlit as st
+st.title("💙 Mental Health Dashboard")
 
-st.set_page_config(page_title="Mental Health Support Dashboard", layout="centered")
+col1, col2, col3 = st.columns(3)
 
-st.title("🧠 Mental Health Support System")
+with col1:
+    if st.button("💬 Motivational Chatbot"):
+        st.session_state.page = "motivation"
 
-# Button-style tiles for navigation
-option = st.mark(
-    "Choose a Feature:",
-    ("💬 Motivational Chatbot", 
-     "🧠 Mental Health Chat", 
-     "🎭 Talk with a Character", 
-     "🤗 Take a Hug", 
-     "🥰 Daily Positivity"),
-    label_visibility="collapsed"
-)
+with col2:
+    if st.button("🧠 Mental Health Chat"):
+        st.session_state.page = "chatbot"
 
-# Dynamic Module Loader
-if option == "💬 Motivational Chatbot":
-    from motivational_chatbot import run_motivational_chatbot
-    run_motivational_chatbot()
+with col3:
+    if st.button("🎭 Talk with a Character"):
+        st.session_state.page = "character_chat"
 
+col4, col5, col6 = st.columns(3)
+
+with col4:
+    if st.button("🤗 Take a Hug"):
+        st.session_state.page = "hug"
+
+with col5:
+    if st.button("🌞 Daily Positivity"):
+        st.session_state.page = "positivity"
+
+with col6:
+    if st.button("🫧 Bubble Game"):
+        st.session_state.page = "bubble_game"
+if st.session_state.page == "motivation":
+    st.subheader("💬 Tell me what you're going through:")
+    situation = st.text_input("Describe your current situation:")
+
+    if situation:
+        try:
+            story_response = model.generate_content(
+                f"You are a motivational storyteller. The user is going through this: '{situation}'. Please respond with an inspiring short story that helps them feel strong and positive."
+            )
+            st.success(story_response.text)
+        except Exception as e:
+            st.error("Sorry, something went wrong. Please try again later.")
