@@ -5,7 +5,7 @@ st.set_page_config(page_title="Mental Health Support Dashboard", layout="centere
 st.title("🧠 Mental Health Support System")
 
 # Button-style tiles for navigation
-option = st.radio(
+option = st.mark(
     "Choose a Feature:",
     ("💬 Motivational Chatbot", 
      "🧠 Mental Health Chat", 
