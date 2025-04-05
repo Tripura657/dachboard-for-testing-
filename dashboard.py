@@ -1,47 +1,37 @@
 import streamlit as st
 
-st.set_page_config(page_title="Mental Health Dashboard", layout="wide")
+st.set_page_config(page_title="Mental Health Support Dashboard", layout="centered")
 
-# Page title
-st.markdown("<h1 style='text-align: center;'>💙 Mental Health Dashboard</h1>", unsafe_allow_html=True)
+st.title("🧠 Mental Health Support System")
 
-# CSS for grid layout
-st.markdown("""
-    <style>
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-    .grid-item {
-        background-color: #e6f2ff;
-        color: #003366;
-        padding: 30px;
-        text-align: center;
-        border-radius: 15px;
-        font-size: 22px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-        text-decoration: none;
-    }
-    .grid-item:hover {
-        background-color: #d1e7ff;
-        border-color: #3399ff;
-        transform: scale(1.05);
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Button-style tiles for navigation
+option = st.radio(
+    "Choose a Feature:",
+    ("💬 Motivational Chatbot", 
+     "🧠 Mental Health Chat", 
+     "🎭 Talk with a Character", 
+     "🤗 Take a Hug", 
+     "🥰 Daily Positivity"),
+    label_visibility="collapsed"
+)
 
-# Grid layout with internal links to pages
-st.markdown("""
-<div class="grid-container">
-    <a href="./Motivational_Chatbot" class="grid-item">💬 Motivational Chatbot</a>
-    <a href="./Mental_Health_Chat" class="grid-item">🧠 Mental Health Chat</a>
-    <a href="./Talk_with_a_Character" class="grid-item">🎭 Talk with a Character</a>
-    <a href="./Take_a_Hug" class="grid-item">🤗 Take a Hug</a>
-    <a href="./Daily_Positivity" class="grid-item">🌞 Daily Positivity</a>
-    <a href="./Bubble_Game" class="grid-item">🫧 Bubble Game</a>
-</div>
-""", unsafe_allow_html=True)
+# Dynamic Module Loader
+if option == "💬 Motivational Chatbot":
+    from motivational_chatbot import run_motivational_chatbot
+    run_motivational_chatbot()
+
+elif option == "🧠 Mental Health Chat":
+    from mental_health_chat import run_mental_health_chat
+    run_mental_health_chat()
+
+elif option == "🎭 Talk with a Character":
+    from talk_with_character import run_character_chat
+    run_character_chat()
+
+elif option == "🤗 Take a Hug":
+    from take_a_hug import run_virtual_hug
+    run_virtual_hug()
+
+elif option == "🥰 Daily Positivity":
+    from daily_positivity import run_daily_positivity
+    run_daily_positivity()
