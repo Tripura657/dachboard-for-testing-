@@ -54,7 +54,9 @@ if st.session_state.page == "motivation":
             story_response = model.generate_content(
                 f"You are a motivational storyteller. The user is going through this: '{situation}'. Please respond with an inspiring short story that helps them feel strong and positive."
             )
-            st.success(story_response.text)
+            story = story_response.text
+            st.subheader("📖 Here's a story for you:")
+            st.success(story)
         except Exception as e:
             st.error("Sorry, something went wrong. Please try again later.")
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
