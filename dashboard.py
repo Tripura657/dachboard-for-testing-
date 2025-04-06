@@ -82,8 +82,8 @@ if st.session_state.page == "home":
         </div>
     """, unsafe_allow_html=True)
 
-# --- MOTIVATIONAL CHATBOT ---
-elif st.session_state.page == "motivation":
+# -- Motivational Chatbot Logic ---
+if st.session_state.page == "motivation":
     st.title("💬 Motivational Story Chatbot")
     st.write("Tell me what's on your mind, and I’ll share a story that might lift you up! 💙")
     situation = st.text_input("🌱 Describe your current situation:")
@@ -92,10 +92,12 @@ elif st.session_state.page == "motivation":
             story_response = model.generate_content(
                 f"You are a motivational storyteller. The user is going through this: '{situation}'. Please respond with an inspiring short story that helps them feel strong and positive."
             )
+            story = story_response.text
             st.subheader("📖 Here's a story for you:")
-            st.success(story_response.text)
+            st.success(story)
         except Exception as e:
             st.error("Sorry, something went wrong. Please try again later.")
+
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
 
 # --- MENTAL HEALTH CHATBOT ---
