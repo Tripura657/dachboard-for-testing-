@@ -109,13 +109,34 @@ elif st.session_state.page == "hug":
 
 # --- Daily Positivity ---
 elif st.session_state.page == "positivity":
-    st.title("🌞 Daily Positivity")
+    st.title("🌞 Daily Positivity & Yoga Asanas")
+
+    # Step 1: Show a positive quote
     try:
         quote = model.generate_content("Give me a short, cheerful positive quote for today.")
         st.success(quote.text)
     except:
         st.error("Oops! Couldn't fetch a quote.")
+
+    st.divider()
+
+    # Step 2: Ask for user's feeling
+    feeling = st.text_input("How are you feeling right now? (e.g., anxious, tired, happy, sad)")
+
+    if feeling:
+        try:
+            prompt = (
+                f"The user is feeling '{feeling}'. Suggest 2 or 3 simple yoga asanas (postures) "
+                "suitable for their current mood, along with a 1-line reason why each helps."
+            )
+            response = model.generate_content(prompt)
+            st.subheader("🧘 Yoga Asanas Just for You:")
+            st.info(response.text)
+        except:
+            st.error("Couldn't fetch yoga suggestions at the moment. Try again later.")
+
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
+
 
 # --- Bubble Game Placeholder ---
 elif st.session_state.page == "bubble_game":
