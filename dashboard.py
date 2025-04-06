@@ -101,7 +101,8 @@ elif st.session_state.page == "character_chat":
 
 # --- Hug Section ---
 elif st.session_state.page == "hug":
-    st.title("🤗 Virtual Hug")
+    st.title("🤗 Virtual Hug Station")
+    st.write("Sometimes, all we need is a warm hug. 💙")
     emotion = st.text_input("How are you feeling?")
     if emotion.lower() in ["sad", "depressed", "lonely", "anxious"]:
         st.image("https://media.giphy.com/media/l2JHRhAtnJSDNJ2py/giphy.gif", use_container_width=True)
