@@ -31,7 +31,7 @@ if st.session_state.page == "home":
         if st.button("🎭 Talk with a Character"):
             st.session_state.page = "character_chat"
 
-    col4, col5, col6 = st.columns(3)
+    col4, col5 = st.columns(2)
     with col4:
         if st.button("🤗 Take a Hug"):
             st.session_state.page = "hug"
@@ -40,9 +40,7 @@ if st.session_state.page == "home":
         if st.button("🧘 Yoga Asanas "):
             st.session_state.page = "positivity"
 
-    with col6:
-        if st.button("🫧 Bubble Game"):
-            st.session_state.page = "bubble_game"
+    
 
 # --- Motivational Chatbot Logic ---
 if st.session_state.page == "motivation":
@@ -140,13 +138,4 @@ elif st.session_state.page == "positivity":
 
 
 # --- Bubble Game Placeholder ---
-elif st.session_state.page == "bubble_game":
-    st.title("🫧 Bubble Game")
-    feeling = st.text_input("Type how you're feeling:")
-    if feeling.lower() in ["sad", "angry", "tired", "lonely"]:
-        st.image("https://media.giphy.com/media/3o7abB06u9bNzA8lu8/giphy.gif", use_container_width=True)
-        st.success("Pop! That feeling is fading. You're doing great ❤️")
-    elif feeling:
-        st.balloons()
-        st.success("Yay! Celebrate your good mood 🎉")
-    st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
+
