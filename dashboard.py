@@ -31,7 +31,7 @@ if st.session_state.page == "home":
         if st.button("🎭 Talk with a Character"):
             st.session_state.page = "character_chat"
 
-    col4, col5 = st.columns(3)
+    col4, col5,col6 = st.columns(3)
     with col4:
         if st.button("🤗 Take a Hug"):
             st.session_state.page = "hug"
