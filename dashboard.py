@@ -47,6 +47,7 @@ if st.session_state.page == "home":
 # --- Motivational Chatbot Logic ---
 if st.session_state.page == "motivation":
     st.title("💬 Motivational Story Chatbot")
+    st.write("Tell me what's on your mind, and I’ll share a story that might lift you up! 💙")
     situation = st.text_input("Describe your current situation:")
     if situation:
         try:
