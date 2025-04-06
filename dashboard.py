@@ -20,7 +20,8 @@ if st.session_state.page == "home":
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("💬 Motivational Chatbot"):
+        if st.markdown('<div class="tile"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712036.png"><p>Chatbot</p></div>', unsafe_allow_html=True)
+:
             st.session_state.page = "motivation"
 
     with col2:
