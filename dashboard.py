@@ -63,8 +63,8 @@ if st.session_state.page == "motivation":
 
 # --- Mental Health Chatbot Logic ---
 elif st.session_state.page == "chatbot":
-    st.title("🧠 Mental Health Chat")
-    query = st.text_input("What's on your mind?")
+    st.title("💙 Mental Health Support Chatbot")
+    query = st.text_input("Hello! I'm here to listen and support you. Feel free to share your thoughts, and I'll try my best to help. Remember, you're not alone! 💙")
     if query:
         try:
             response = model.generate_content(
