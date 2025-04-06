@@ -20,24 +20,24 @@ if st.session_state.page == "home":
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        if  st.button("💬 Motivational Chatbot"):
+        if  st.button("Situation to Story📖"):
             st.session_state.page = "motivation"
 
     with col2:
-        if st.button("🧠 Mental Health Chat"):
+        if st.button("Mental Health Buddy 🤝"):
             st.session_state.page = "chatbot"
 
     with col3:
-        if st.button("🎭 Talk with a Character"):
+        if st.button("Fictional Talk 🎭"):
             st.session_state.page = "character_chat"
 
     col4, col5,col6 = st.columns(3)
     with col4:
-        if st.button("🤗 Take a Hug"):
+        if st.button("Take a Hug 🫂"):
             st.session_state.page = "hug"
 
     with col5:
-        if st.button("🧘 Yoga Asanas "):
+        if st.button("Yoga Asanas 🧘"):
             st.session_state.page = "positivity"
 
     
