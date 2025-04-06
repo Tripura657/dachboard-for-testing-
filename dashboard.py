@@ -5,84 +5,44 @@ import google.generativeai as genai
 st.set_page_config(page_title="Mental Health Support", layout="centered")
 
 # --- Configure Gemini ---
-genai.configure(api_key="YOUR_API_KEY")  # Replace with your actual key
+genai.configure(api_key="AIzaSyCX5TKAFYkpT3JLnEa0_alXNjwYpe_-S2E")  # Replace with your actual key
+
+# --- Load model ---
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# --- Routing via query params ---
-query_params = st.query_params
-if "page" in query_params:
-    st.session_state.page = query_params["page"]
-elif "page" not in st.session_state:
+# --- Session state to track page ---
+if "page" not in st.session_state:
     st.session_state.page = "home"
 
-# --- HOME PAGE ---
+# --- Home Dashboard Layout ---
 if st.session_state.page == "home":
     st.title("💙 Mental Health Dashboard")
 
-    st.markdown("""
-        <style>
-            .dashboard-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-                justify-items: center;
-            }
-            .dashboard-item {
-                text-align: center;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .dashboard-item:hover {
-                transform: scale(1.05);
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            }
-            .dashboard-item img {
-                border-radius: 20px;
-                width: 200px;
-                height: 200px;
-                object-fit: cover;
-            }
-            .dashboard-item p {
-                margin-top: 10px;
-                font-weight: bold;
-                color: white;
-            }
-        </style>
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if  st.button("💬 Motivational Chatbot"):
+            st.session_state.page = "motivation"
 
-        <div class="dashboard-grid">
-            <div class="dashboard-item">
-                <a href="/?page=motivation">
-                    <img src="https://i.ibb.co/XzTc1mF/motivation.png" />
-                    <p>Motivational Chatbot</p>
-                </a>
-            </div>
-            <div class="dashboard-item">
-                <a href="/?page=chatbot">
-                    <img src="https://i.ibb.co/4YsXM0x/mental-health-chat.png" />
-                    <p>Mental Health Chat</p>
-                </a>
-            </div>
-            <div class="dashboard-item">
-                <a href="/?page=character_chat">
-                    <img src="https://i.ibb.co/jv3B6QZ/character.png" />
-                    <p>Talk with a Character</p>
-                </a>
-            </div>
-            <div class="dashboard-item">
-                <a href="/?page=hug">
-                    <img src="https://i.ibb.co/qkFV1xq/hug.png" />
-                    <p>Take a Hug</p>
-                </a>
-            </div>
-            <div class="dashboard-item">
-                <a href="/?page=positivity">
-                    <img src="https://i.ibb.co/0jkpsZC/yoga.png" />
-                    <p>Yoga Asanas</p>
-                </a>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    with col2:
+        if st.button("🧠 Mental Health Chat"):
+            st.session_state.page = "chatbot"
 
-# -- Motivational Chatbot Logic ---
+    with col3:
+        if st.button("🎭 Talk with a Character"):
+            st.session_state.page = "character_chat"
+
+    col4, col5 = st.columns(2)
+    with col4:
+        if st.button("🤗 Take a Hug"):
+            st.session_state.page = "hug"
+
+    with col5:
+        if st.button("🧘 Yoga Asanas "):
+            st.session_state.page = "positivity"
+
+    
+
+# --- Motivational Chatbot Logic ---
 if st.session_state.page == "motivation":
     st.title("💬 Motivational Story Chatbot")
     st.write("Tell me what's on your mind, and I’ll share a story that might lift you up! 💙")
@@ -97,13 +57,12 @@ if st.session_state.page == "motivation":
             st.success(story)
         except Exception as e:
             st.error("Sorry, something went wrong. Please try again later.")
-
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
 
-# --- MENTAL HEALTH CHATBOT ---
+# --- Mental Health Chatbot Logic ---
 elif st.session_state.page == "chatbot":
     st.title("💙 Mental Health Support Chatbot")
-    query = st.text_input("Hello! I'm here to listen and support you. Feel free to share your thoughts. You're not alone 💙")
+    query = st.text_input("Hello! I'm here to listen and support you. Feel free to share your thoughts, and I'll try my best to help. Remember, you're not alone! 💙")
     if query:
         try:
             response = model.generate_content(
@@ -114,7 +73,7 @@ elif st.session_state.page == "chatbot":
             st.error("Oops! Something went wrong.")
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
 
-# --- CHARACTER CHAT ---
+# --- Character Chat Logic ---
 elif st.session_state.page == "character_chat":
     st.title("🎭 Talk with Your Favorite Character")
     characters = {
@@ -125,7 +84,6 @@ elif st.session_state.page == "character_chat":
         "Elsa": "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif"
     }
     character = st.selectbox("Choose a character:", list(characters.keys()))
-    st.image(characters[character], width=300)
     prompt = st.chat_input(f"What do you want to tell {character}?")
     if prompt:
         with st.spinner("Summoning your character..."):
@@ -133,24 +91,26 @@ elif st.session_state.page == "character_chat":
                 reply = model.generate_content(
                     f"You are roleplaying as {character}. Reply in the tone and style of this character. The user says: '{prompt}'"
                 )
-                st.markdown(f"**{character}**: {reply.text}")
+                
+                st.markdown(f"{character}: {reply.text}")
             except:
                 st.error("Oops! Something went wrong.")
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
 
-# --- HUG STATION ---
+# --- Hug Section ---
 elif st.session_state.page == "hug":
     st.title("🤗 Virtual Hug Station")
     st.write("Sometimes, all we need is a warm hug. 💙")
-    st.image("virtual hug.gif", width=900)  # Replace with your own path if needed
-    st.markdown("**You're not alone. We're here with you.** 💙")
+    st.image("virtual hug.gif", width=900)
+    st.markdown("*You're not alone. We're here with you.* 💙")
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
 
-# --- YOGA & POSITIVITY ---
+# --- Daily Positivity ---
 elif st.session_state.page == "positivity":
     st.title("🧘 Yoga Asanas ")
     st.write("🌞 Daily Positivity")
 
+    # Step 1: Show a positive quote
     try:
         quote = model.generate_content("Give me a short, cheerful positive quote for today.")
         st.success(quote.text)
@@ -158,7 +118,10 @@ elif st.session_state.page == "positivity":
         st.error("Oops! Couldn't fetch a quote.")
 
     st.divider()
+
+    # Step 2: Ask for user's feeling
     feeling = st.text_input("How are you feeling right now? (e.g., anxious, tired, happy, sad)")
+
     if feeling:
         try:
             prompt = (
@@ -170,4 +133,8 @@ elif st.session_state.page == "positivity":
             st.info(response.text)
         except:
             st.error("Couldn't fetch yoga suggestions at the moment. Try again later.")
+
     st.button("🔙 Back to Home", on_click=lambda: st.session_state.update({"page": "home"}))
+
+
+# --- Bubble Game Placeholder ---
