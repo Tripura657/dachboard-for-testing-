@@ -37,7 +37,7 @@ if st.session_state.page == "home":
             st.session_state.page = "hug"
 
     with col5:
-        if st.button("🌞 Daily Positivity"):
+        if st.button("🧘 Yoga Asanas "):
             st.session_state.page = "positivity"
 
     with col6:
@@ -109,7 +109,8 @@ elif st.session_state.page == "hug":
 
 # --- Daily Positivity ---
 elif st.session_state.page == "positivity":
-    st.title("🌞 Daily Positivity & Yoga Asanas")
+    st.title("🧘 Yoga Asanas ")
+    st.write("🌞 Daily Positivity")
 
     # Step 1: Show a positive quote
     try:
