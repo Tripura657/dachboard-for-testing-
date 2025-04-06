@@ -93,7 +93,7 @@ elif st.session_state.page == "character_chat":
                 reply = model.generate_content(
                     f"You are roleplaying as {character}. Reply in the tone and style of this character. The user says: '{prompt}'"
                 )
-                st.image(characters[character], use_container_width=True)
+                
                 st.markdown(f"**{character}**: {reply.text}")
             except:
                 st.error("Oops! Something went wrong.")
