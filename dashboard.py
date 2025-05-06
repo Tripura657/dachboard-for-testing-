@@ -61,7 +61,7 @@ if st.session_state.page == "motivation":
 
 # --- Mental Health Chatbot Logic ---
 elif st.session_state.page == "chatbot":
-    st.title("💙 Mental Health Support Chatbot")
+    st.title("Mental Health Buddy 🧑‍🤝‍🧑")
     query = st.text_input("Hello! I'm here to listen and support you. Feel free to share your thoughts, and I'll try my best to help. Remember, you're not alone! 💙")
     if query:
         try:
