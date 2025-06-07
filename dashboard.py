@@ -5,7 +5,7 @@ import google.generativeai as genai
 st.set_page_config(page_title="Mental Health Support", layout="centered")
 
 # --- Configure Gemini ---
-genai.configure(api_key="AIzaSyCX5TKAFYkpT3JLnEa0_alXNjwYpe_-S2E")  # Replace with your actual key
+genai.configure(api_key="GEMINI_API_KEY")  # Replace with your actual key
 
 # --- Load model ---
 model = genai.GenerativeModel("gemini-1.5-flash")
